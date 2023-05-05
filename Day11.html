@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Toast Notification</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+			integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+
+		<link rel="stylesheet" href="Day11.css" />
+	</head>
+	<body>
+		<div class="control">
+			<button class="success">Show Success</button>
+			<button class="warning">Show Warning</button>
+			<button class="error">Show Error</button>
+		</div>
+		<div id="toasts"></div>
+		<script >
+            const buttonShows = document.querySelectorAll('.control button')
+buttonShows.forEach((btn) => {
+	btn.addEventListener('click', (e) => {
+		createToast(e.target.getAttribute('class'))
+	})
+})
+
+const toasts = {
+	success: {
+		icon: '<i class="fas fa-check-circle"></i>',
+		msg: 'This is a success message !',
+	},
+	error: {
+		icon: '<i class="fas fa-exclamation-triangle"></i>',
+		msg: 'This is a error message !',
+	},
+	warning: {
+		icon: '<i class="fas fa-exclamation-circle"></i>',
+		msg: 'This is a warning message !',
+	},
+}
+
+function createToast(status) {
+	let toast = document.createElement('div')
+	toast.className = `toast ${status}`
+
+	toast.innerHTML = `
+    ${toasts[status].icon}
+    <span class="msg">${toasts[status].msg}</span>
+    <span class="countdown"></span>
+    `
+	document.querySelector('#toasts').appendChild(toast)
+
+	setTimeout(() => {
+		toast.style.animation = 'hide_slide 1s ease forwards'
+	}, 4000)
+	setTimeout(() => {
+		toast.remove()
+	}, 6000)
+}
+
+        </script>
+	</body>
+</html>
